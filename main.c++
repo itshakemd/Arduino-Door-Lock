@@ -1,13 +1,16 @@
 #include <Keypad.h>
 #include <Servo.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+Servo lockServo;
+LiquidCrystal_I2C lcd(0x27,16,2);
 
 // Servo & Outputs
 #define SERVO_PIN 6
 #define RED_LED 8
 #define GREEN_LED 7
 #define BUZZER A0
-
-Servo lockServo;
 
 // Keypad
 const byte ROWS = 4;
@@ -32,6 +35,9 @@ void setup()
 {
     Serial.begin(9600);
 
+    lcd.init();
+    lcd.backlight();
+
     pinMode(RED_LED,OUTPUT);
     pinMode(GREEN_LED,OUTPUT);
     pinMode(BUZZER,OUTPUT);
@@ -41,10 +47,21 @@ void setup()
     Serial.println("Servo attached on pin " + String(SERVO_PIN) + ", set to 0");
 
     digitalWrite(RED_LED,HIGH);
+
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("SMART DOOR");
+    lcd.setCursor(0,1);
+    lcd.print("LOCK SYSTEM");
+    delay(2000);
+
+    lcd.clear();
 }
 
 void loop()
 {
+    lcd.setCursor(0,0);
+    lcd.print("Who goes there?");
     checkPassword();
 }
 
@@ -76,7 +93,7 @@ void checkPassword()
         else if(key=='*')
         {
             inputPassword="";
-            Serial.println("Input cleared");
+            lcd.clear();
         }
         else
         {
