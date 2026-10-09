@@ -5,6 +5,7 @@
 #define SERVO_PIN 6
 #define RED_LED 8
 #define GREEN_LED 7
+#define BUZZER A0
 
 Servo lockServo;
 
@@ -33,6 +34,7 @@ void setup()
 
     pinMode(RED_LED,OUTPUT);
     pinMode(GREEN_LED,OUTPUT);
+    pinMode(BUZZER,OUTPUT);
 
     lockServo.attach(SERVO_PIN);
     lockServo.write(0);
@@ -90,6 +92,8 @@ void unlockDoor()
 {
     digitalWrite(RED_LED,LOW);
     digitalWrite(GREEN_LED,HIGH);
+
+    tone(BUZZER,1000,200);
 
     Serial.println("Writing servo angle 90");
     lockServo.write(90);
