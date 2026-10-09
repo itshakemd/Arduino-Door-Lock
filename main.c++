@@ -53,6 +53,11 @@ void checkPassword()
 
             inputPassword="";
         }
+        else if(key=='*')
+        {
+            inputPassword="";
+            Serial.println("Input cleared");
+        }
         else
         {
             inputPassword+=key;
