@@ -72,7 +72,22 @@ void loop()
 {
     lcd.setCursor(0,0);
     lcd.print("Who goes there?");
+    checkRFID();
     checkPassword();
+}
+
+void checkRFID()
+{
+    if(!mfrc522.PICC_IsNewCardPresent()) return;
+    if(!mfrc522.PICC_ReadCardSerial()) return;
+
+    Serial.print("Card UID:");
+    for(byte i=0;i<mfrc522.uid.size;i++)
+    {
+        Serial.print(mfrc522.uid.uidByte[i],HEX);
+        Serial.print(" ");
+    }
+    Serial.println();
 }
 
 void checkPassword()
