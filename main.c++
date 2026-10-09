@@ -38,6 +38,8 @@ Keypad keypad = Keypad(makeKeymap(keys),rowPins,colPins,ROWS,COLS);
 String password="1234";
 String inputPassword="";
 
+byte validUID[4]={0x01,0x02,0x03,0x04};   // Replace with your RFID UID
+
 void setup()
 {
     Serial.begin(9600);
