@@ -87,6 +87,8 @@ void checkPassword()
             }
             else
             {
+                lcd.clear();
+                lcd.print("Wrong Password");
                 denied();
             }
 
