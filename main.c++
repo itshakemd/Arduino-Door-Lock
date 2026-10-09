@@ -61,6 +61,7 @@ void checkPassword()
         else
         {
             inputPassword+=key;
+            Serial.print("*");
         }
     }
 }
