@@ -97,6 +97,14 @@ void checkRFID()
         lcd.print("RFID Accepted");
         unlockDoor();
     }
+    else
+    {
+        lcd.clear();
+        lcd.print("YOU SHALL NOT");
+        lcd.setCursor(0,1);
+        lcd.print("PASS!");
+        denied();
+    }
 
     delay(1500);
     lcd.clear();
