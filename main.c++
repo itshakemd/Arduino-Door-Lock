@@ -83,13 +83,23 @@ void checkRFID()
     if(!mfrc522.PICC_IsNewCardPresent()) return;
     if(!mfrc522.PICC_ReadCardSerial()) return;
 
-    Serial.print("Card UID:");
-    for(byte i=0;i<mfrc522.uid.size;i++)
+    bool access=true;
+
+    for(byte i=0;i<4;i++)
     {
-        Serial.print(mfrc522.uid.uidByte[i],HEX);
-        Serial.print(" ");
+        if(mfrc522.uid.uidByte[i]!=validUID[i])
+        access=false;
     }
-    Serial.println();
+
+    if(access)
+    {
+        lcd.clear();
+        lcd.print("RFID Accepted");
+        unlockDoor();
+    }
+
+    delay(1500);
+    lcd.clear();
 }
 
 void checkPassword()
