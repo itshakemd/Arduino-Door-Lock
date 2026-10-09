@@ -38,6 +38,24 @@ void checkPassword()
         Serial.print("Key pressed: ");
         Serial.println(key);
 
-        inputPassword+=key;
+        if(key=='#')
+        {
+            Serial.println("Submitted: [" + inputPassword + "]  Expected: [" + password + "]");
+
+            if(inputPassword==password)
+            {
+                Serial.println("Password match -> unlocking");
+            }
+            else
+            {
+                Serial.println("Wrong password");
+            }
+
+            inputPassword="";
+        }
+        else
+        {
+            inputPassword+=key;
+        }
     }
 }
