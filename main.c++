@@ -3,6 +3,7 @@
 
 // Servo & Outputs
 #define SERVO_PIN 6
+#define RED_LED 8
 
 Servo lockServo;
 
@@ -29,9 +30,13 @@ void setup()
 {
     Serial.begin(9600);
 
+    pinMode(RED_LED,OUTPUT);
+
     lockServo.attach(SERVO_PIN);
     lockServo.write(0);
     Serial.println("Servo attached on pin " + String(SERVO_PIN) + ", set to 0");
+
+    digitalWrite(RED_LED,HIGH);
 }
 
 void loop()
@@ -59,6 +64,7 @@ void checkPassword()
             }
             else
             {
+                digitalWrite(RED_LED,HIGH);
                 Serial.println("Wrong password");
             }
 
