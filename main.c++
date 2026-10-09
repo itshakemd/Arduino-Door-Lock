@@ -4,6 +4,7 @@
 // Servo & Outputs
 #define SERVO_PIN 6
 #define RED_LED 8
+#define GREEN_LED 7
 
 Servo lockServo;
 
@@ -31,6 +32,7 @@ void setup()
     Serial.begin(9600);
 
     pinMode(RED_LED,OUTPUT);
+    pinMode(GREEN_LED,OUTPUT);
 
     lockServo.attach(SERVO_PIN);
     lockServo.write(0);
@@ -64,6 +66,7 @@ void checkPassword()
             }
             else
             {
+                digitalWrite(GREEN_LED,LOW);
                 digitalWrite(RED_LED,HIGH);
                 Serial.println("Wrong password");
             }
@@ -85,6 +88,9 @@ void checkPassword()
 
 void unlockDoor()
 {
+    digitalWrite(RED_LED,LOW);
+    digitalWrite(GREEN_LED,HIGH);
+
     Serial.println("Writing servo angle 90");
     lockServo.write(90);
 }
