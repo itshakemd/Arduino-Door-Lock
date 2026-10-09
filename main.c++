@@ -68,9 +68,7 @@ void checkPassword()
             }
             else
             {
-                digitalWrite(GREEN_LED,LOW);
-                digitalWrite(RED_LED,HIGH);
-                Serial.println("Wrong password");
+                denied();
             }
 
             inputPassword="";
@@ -97,4 +95,18 @@ void unlockDoor()
 
     Serial.println("Writing servo angle 90");
     lockServo.write(90);
+}
+
+void denied()
+{
+    digitalWrite(GREEN_LED,LOW);
+    digitalWrite(RED_LED,HIGH);
+
+    for(int i=0;i<3;i++)
+    {
+        tone(BUZZER,500);
+        delay(250);
+        noTone(BUZZER);
+        delay(250);
+    }
 }
