@@ -30,8 +30,8 @@ char keys[ROWS][COLS]={
 {'*','0','#','D'}
 };
 
-byte rowPins[ROWS]={A1,A2,A3,0};
-byte colPins[COLS]={2,3,4,5};
+byte rowPins[ROWS]={A1,A2,A3,0}; 
+byte colPins[COLS]={2,3,4,5};    
 
 Keypad keypad = Keypad(makeKeymap(keys),rowPins,colPins,ROWS,COLS);
 
@@ -106,6 +106,9 @@ void checkRFID()
         denied();
     }
 
+    mfrc522.PICC_HaltA();     
+    mfrc522.PCD_StopCrypto1();  
+
     delay(1500);
     lcd.clear();
 }
@@ -141,11 +144,13 @@ void checkPassword()
             delay(1500);
             lcd.clear();
         }
+
         else if(key=='*')
         {
             inputPassword="";
             lcd.clear();
         }
+
         else
         {
             inputPassword+=key;
