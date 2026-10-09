@@ -80,6 +80,8 @@ void checkPassword()
 
             if(inputPassword==password)
             {
+                lcd.clear();
+                lcd.print("Correct");
                 Serial.println("Password match -> unlocking");
                 unlockDoor();
             }
@@ -89,6 +91,8 @@ void checkPassword()
             }
 
             inputPassword="";
+            delay(1500);
+            lcd.clear();
         }
         else if(key=='*')
         {
@@ -98,7 +102,9 @@ void checkPassword()
         else
         {
             inputPassword+=key;
-            Serial.print("*");
+            lcd.setCursor(0,1);
+            for(int i=0;i<inputPassword.length();i++)
+            lcd.print("*");
         }
     }
 }
@@ -112,6 +118,9 @@ void unlockDoor()
 
     Serial.println("Writing servo angle 90");
     lockServo.write(90);
+
+    lcd.clear();
+    lcd.print("Enter, mortal!");
 }
 
 void denied()
