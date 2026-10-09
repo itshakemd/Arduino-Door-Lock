@@ -1,4 +1,10 @@
 #include <Keypad.h>
+#include <Servo.h>
+
+// Servo & Outputs
+#define SERVO_PIN 6
+
+Servo lockServo;
 
 // Keypad
 const byte ROWS = 4;
@@ -22,6 +28,10 @@ String inputPassword="";
 void setup()
 {
     Serial.begin(9600);
+
+    lockServo.attach(SERVO_PIN);
+    lockServo.write(0);
+    Serial.println("Servo attached on pin " + String(SERVO_PIN) + ", set to 0");
 }
 
 void loop()
@@ -45,6 +55,7 @@ void checkPassword()
             if(inputPassword==password)
             {
                 Serial.println("Password match -> unlocking");
+                unlockDoor();
             }
             else
             {
@@ -64,4 +75,10 @@ void checkPassword()
             Serial.print("*");
         }
     }
+}
+
+void unlockDoor()
+{
+    Serial.println("Writing servo angle 90");
+    lockServo.write(90);
 }
