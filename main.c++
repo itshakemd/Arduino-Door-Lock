@@ -123,6 +123,19 @@ void unlockDoor()
 
     lcd.clear();
     lcd.print("Enter, mortal!");
+
+    delay(5000);
+
+    lockServo.write(0);
+
+    digitalWrite(GREEN_LED,LOW);
+    digitalWrite(RED_LED,HIGH);
+
+    lcd.clear();
+    lcd.print("Door Locked");
+    delay(1500);
+
+    lcd.clear();
 }
 
 void denied()
