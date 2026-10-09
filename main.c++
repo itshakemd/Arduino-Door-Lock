@@ -1,7 +1,14 @@
+#include <SPI.h>
+#include <MFRC522.h>
 #include <Keypad.h>
 #include <Servo.h>
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
+
+#define SS_PIN 10
+#define RST_PIN 9
+
+MFRC522 mfrc522(SS_PIN, RST_PIN);
 
 Servo lockServo;
 LiquidCrystal_I2C lcd(0x27,16,2);
@@ -34,6 +41,9 @@ String inputPassword="";
 void setup()
 {
     Serial.begin(9600);
+
+    SPI.begin();
+    mfrc522.PCD_Init();
 
     lcd.init();
     lcd.backlight();
